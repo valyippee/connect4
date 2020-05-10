@@ -81,14 +81,3 @@ class Board:
             print(lst)
 
 
-if __name__ == '__main__':
-    playerX = Player(Cell.X)
-    playerO = Player(Cell.O)
-
-    board = Board()
-    board.display_board()
-    print(board.valid_moves())
-    board.input_piece(playerX, 3)
-    board.display_board()
-    print(board.boardcells.get((6, 3)))
-
