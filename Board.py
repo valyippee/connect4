@@ -80,4 +80,3 @@ class Board:
         for lst in game_state:
             print(lst)
 
-

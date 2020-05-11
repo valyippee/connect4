@@ -8,6 +8,8 @@ class ConnectFourGame:
     board = Board()
     player_x = Player(Cell.X)
     player_o = Player(Cell.O)
+    game_end = False
+    player_x_turn = True
 
     def __init__(self):
         pass
@@ -27,7 +29,7 @@ class ConnectFourGame:
             return True
         if len(self.check_diagonal_increasing(player, row, column, column)) >= 4:
             return True
-        if len(self.check_horizontal(player, row, column)) >= 4:
+        if len(self.check_horizontal(player, row, column, column)) >= 4:
             return True
         if len(self.check_vertical(player, row, column)) >= 4:
             return True
@@ -133,30 +135,28 @@ class ConnectFourGame:
 
         return possible_victory
 
-
-    # def start_game(self):
-
+    def start_game(self):
+        while not game.game_end:
+            game.board.display_board()
+            print("Possible moves: " + str(game.board.valid_moves()))
+            if game.player_x_turn:
+                print("Player X's turn.")
+                player_move = int(input("Please input a number: "))
+                input_row = game.board.input_piece(game.player_x, player_move)
+                if game.check_won(game.player_x, input_row, player_move):
+                    game.game_end = True
+                    print("Player X won")
+                game.player_x_turn = False
+            else:
+                print("Player O's turn.")
+                player_move = int(input("Please input a number: "))
+                input_row = game.board.input_piece(game.player_o, player_move)
+                if game.check_won(game.player_x, input_row, player_move):
+                    game.game_end = True
+                    print("Player O won")
+                game.player_x_turn = True
 
 
 if __name__ == '__main__':
     game = ConnectFourGame()
-    game.board.display_board()
-    print("\n")
-    game.board.input_piece(game.player_x, 2)
-    game.board.input_piece(game.player_o, 3)
-    game.board.input_piece(game.player_x, 3)
-    game.board.input_piece(game.player_o, 4)
-    game.board.input_piece(game.player_o, 4)
-    game.board.input_piece(game.player_x, 4)
-    game.board.input_piece(game.player_o, 5)
-    game.board.input_piece(game.player_o, 5)
-    game.board.input_piece(game.player_o, 5)
-    game.board.input_piece(game.player_x, 5)
-    game.board.input_piece(game.player_o, 6)
-    game.board.input_piece(game.player_o, 6)
-    game.board.input_piece(game.player_x, 6)
-    game.board.input_piece(game.player_o, 7)
-    game.board.input_piece(game.player_x, 7)
-    game.board.input_piece(game.player_x, 4)
-    game.board.input_piece(game.player_x, 4)
-    game.board.display_board()
+    game.start_game()
