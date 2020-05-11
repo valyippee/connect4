@@ -1,6 +1,6 @@
-from connect4.Board import Player
-from connect4.Board import Cell
-from connect4.Board import Board
+from Board import Player
+from Board import Cell
+from Board import Board
 
 
 class ConnectFourGame:
