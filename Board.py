@@ -48,7 +48,9 @@ class Board:
 
     def display_board(self):
         """
+
         prints current game state
+
         """
         game_state = []
         for i in range(self.BOARD_HEIGHT):

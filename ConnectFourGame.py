@@ -17,7 +17,7 @@ class ConnectFourGame:
         """
 
         Args:
-            player:
+            player: player who input the most recent piece
             row: the row at which the most recent game piece is inserted
             column: the column at which the most recent game piece is inserted
 
@@ -62,7 +62,7 @@ class ConnectFourGame:
         """
 
         Args:
-            player:
+            player: player who input the most recent piece
             row: the row at which the most recent game piece is inserted
 
         Returns: boolean of whether the player won (four pieces connected horizontally)
@@ -87,7 +87,7 @@ class ConnectFourGame:
         """
 
         Args:
-            player:
+            player: player who input the most recent piece
             row: the row at which the most recent game piece is inserted
             column: the column at which the most recent game piece is inserted
 
@@ -117,7 +117,7 @@ class ConnectFourGame:
         """
 
         Args:
-            player:
+            player: player who input the most recent piece
             row: the row at which the most recent game piece is inserted
             column: the column at which the most recent game piece is inserted
 
@@ -143,6 +143,9 @@ class ConnectFourGame:
         return False
 
     def start_game(self):
+        """
+        game loop
+        """
         while not game.game_end:
             game.board.display_board()
             print("Possible moves: " + str(game.board.valid_moves()))
