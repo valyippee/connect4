@@ -1,15 +1,14 @@
 from Board import Player
-from Board import Cell
 from Board import Board
 
 
 class ConnectFourGame:
 
     board = Board()
-    player_x = Player(Cell.X)
-    player_o = Player(Cell.O)
+    player_red = Player("red")
+    player_yellow = Player("yellow")
     game_end = False
-    player_x_turn = True
+    player_red_turn = True
 
     def __init__(self):
         pass
@@ -25,136 +24,152 @@ class ConnectFourGame:
         Returns: boolean of whether the player won
 
         """
-        if len(self.check_diagonal_decreasing(player, row, column, column)) >= 4:
+        if self.check_left_diagonal(player, row, column):
             return True
-        if len(self.check_diagonal_increasing(player, row, column, column)) >= 4:
+        if self.check_right_diagonal(player, row, column):
             return True
-        if len(self.check_horizontal(player, row, column, column)) >= 4:
+        if self.check_horizontal(player, row):
             return True
-        if len(self.check_vertical(player, row, column)) >= 4:
+        if self.check_vertical(player, column):
             return True
         return False
 
-    def check_vertical(self, player, row, column):
+    def check_vertical(self, player, column):
         """
 
         Args:
             player: player who input the most recent piece
-            row: the row at which the most recent game piece is inserted
             column: the column at which the most recent game piece is inserted
 
-        Returns: a list of the longest vertical chain formed with the most recent game piece
+        Returns: boolean of whether the player won (four pieces connected vertically)
 
         """
-        possible_victory = []
-        if self.board.boardcells.get((row, column)) == player.sign:
-            possible_victory.append((row, column))
-            possible_connected_piece = self.check_vertical(player, row + 1, column)
-            possible_victory.extend(possible_connected_piece)
+        count_longest_chain = 0
+        row = 0
 
-        return possible_victory
+        while self.board.board_dict.get((row, column)):
+            if self.board.board_dict.get((row, column)) == player.colour:
+                count_longest_chain += 1
+            else:
+                count_longest_chain = 0
+            row += 1
 
-    def check_horizontal(self, player, row, column, starting_column):
+        if count_longest_chain >= 4:
+            return True
+        return False
+
+    def check_horizontal(self, player, row):
+        """
+
+        Args:
+            player:
+            row: the row at which the most recent game piece is inserted
+
+        Returns: boolean of whether the player won (four pieces connected horizontally)
+
+        """
+
+        count_longest_chain = 0
+        column = 0
+
+        while column <= game.board.BOARD_WIDTH:
+            if self.board.board_dict.get((row, column)) == player.colour:
+                count_longest_chain += 1
+                if count_longest_chain >= 4:
+                    return True
+            else:
+                count_longest_chain = 0
+            column += 1
+
+        return False
+
+    def check_right_diagonal(self, player, row, column):
         """
 
         Args:
             player:
             row: the row at which the most recent game piece is inserted
             column: the column at which the most recent game piece is inserted
-            starting_column: the column at which the most recent game piece is inserted
 
-        Returns: a list of the longest horizontal chain formed with the most recent game piece
-
-        """
-        possible_victory = []
-        if self.board.boardcells.get((row, column)) == player.sign:
-            possible_victory.append((row, column))
-            if column < starting_column:
-                possible_connected_piece_left = self.check_horizontal(player, row, column - 1, starting_column)
-                possible_victory.extend(possible_connected_piece_left)
-                return possible_victory
-            possible_connected_piece_right = self.check_horizontal(player, row, column + 1, starting_column)
-            possible_victory.extend(possible_connected_piece_right)
-            if column <= starting_column:
-                possible_connected_piece_left = self.check_horizontal(player, row, column - 1, starting_column)
-                possible_victory.extend(possible_connected_piece_left)
-
-        return possible_victory
-
-    def check_diagonal_increasing(self, player, row, column, starting_column):
-        """
-
-        Args:
-            player:
-            row: the row at which the most recent game piece is inserted
-            column: the column at which the most recent game piece is inserted
-            starting_column: the column at which the most recent game piece is inserted
-
-        Returns: a list of the longest diagonal (increasing) chain formed with the most recent game piece
+        Returns: boolean of whether the player won (four pieces connected diagonally upwards to the right)
 
         """
-        possible_victory = []
-        if self.board.boardcells.get((row, column)) == player.sign:
-            possible_victory.append((row, column))
-            if column < starting_column:
-                possible_connected_piece_left = self.check_diagonal_increasing(player, row + 1, column - 1, starting_column)
-                possible_victory.extend(possible_connected_piece_left)
-                return possible_victory
-            possible_connected_piece_right = self.check_diagonal_increasing(player, row - 1, column + 1, starting_column)
-            possible_victory.extend(possible_connected_piece_right)
-            if column <= starting_column:
-                possible_connected_piece_left = self.check_diagonal_increasing(player, row + 1, column - 1, starting_column)
-                possible_victory.extend(possible_connected_piece_left)
 
-        return possible_victory
+        count_longest_chain = 0
 
-    def check_diagonal_decreasing(self, player, row, column, starting_column):
+        while row > 0 and column > 0:
+            row -= 1
+            column -= 1
+
+        while column <= game.board.BOARD_WIDTH and row <= game.board.BOARD_HEIGHT:
+            if self.board.board_dict.get((row, column)) == player.colour:
+                count_longest_chain += 1
+                if count_longest_chain == 4:
+                    return True
+            else:
+                count_longest_chain = 0
+            column += 1
+            row += 1
+
+        return False
+
+    def check_left_diagonal(self, player, row, column):
         """
 
         Args:
             player:
             row: the row at which the most recent game piece is inserted
             column: the column at which the most recent game piece is inserted
-            starting_column: the column at which the most recent game piece is inserted
 
-        Returns: a list of the longest diagonal (decreasing) chain formed with the most recent game piece
+        Returns: boolean of whether the player won (four pieces connected diagonally upwards to the right)
 
         """
-        possible_victory = []
-        if self.board.boardcells.get((row, column)) == player.sign:
-            possible_victory.append((row, column))
-            if column < starting_column:
-                possible_connected_piece_left = self.check_diagonal_decreasing(player, row - 1, column - 1, starting_column)
-                possible_victory.extend(possible_connected_piece_left)
-                return possible_victory
-            possible_connected_piece_right = self.check_diagonal_decreasing(player, row + 1, column + 1, starting_column)
-            possible_victory.extend(possible_connected_piece_right)
-            if column <= starting_column:
-                possible_connected_piece_left = self.check_diagonal_decreasing(player, row - 1, column - 1, starting_column)
-                possible_victory.extend(possible_connected_piece_left)
+        count_longest_chain = 0
 
-        return possible_victory
+        while row > 0 and column < 6:
+            row -= 1
+            column += 1
+
+        while column >= 0 and row >= 0:
+            if self.board.board_dict.get((row, column)) == player.colour:
+                count_longest_chain += 1
+                if count_longest_chain >= 4:
+                    return True
+            else:
+                count_longest_chain = 0
+            column -= 1
+            row += 1
+
+        return False
 
     def start_game(self):
         while not game.game_end:
             game.board.display_board()
             print("Possible moves: " + str(game.board.valid_moves()))
-            if game.player_x_turn:
-                print("Player X's turn.")
-                player_move = int(input("Please input a number: "))
-                input_row = game.board.input_piece(game.player_x, player_move)
-                if game.check_won(game.player_x, input_row, player_move):
+            if game.player_red_turn:
+                print("Red's turn.")
+                input_column = int(input("Please input a number: "))
+                if input_column not in game.board.valid_moves():
+                    print("That is not a valid move. Please try again.")
+                    continue
+                input_row = game.board.input_piece(game.player_red, input_column)
+                if game.check_won(game.player_red, input_row, input_column):
                     game.game_end = True
-                    print("Player X won")
-                game.player_x_turn = False
+                    game.board.display_board()
+                    print("Red won!")
+                game.player_red_turn = False
             else:
-                print("Player O's turn.")
-                player_move = int(input("Please input a number: "))
-                input_row = game.board.input_piece(game.player_o, player_move)
-                if game.check_won(game.player_x, input_row, player_move):
+                print("Yellow's turn.")
+                input_column = int(input("Please input a number: "))
+                if input_column not in game.board.valid_moves():
+                    print("That is not a valid move. Please try again.")
+                    continue
+                input_row = game.board.input_piece(game.player_yellow, input_column)
+                if game.check_won(game.player_red, input_row, input_column):
                     game.game_end = True
-                    print("Player O won")
-                game.player_x_turn = True
+                    game.board.display_board()
+                    print("Yellow won!")
+                game.player_red_turn = True
 
 
 if __name__ == '__main__':
