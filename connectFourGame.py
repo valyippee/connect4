@@ -1,17 +1,16 @@
-from Board import Player
-from Board import Board
+from connect4.board import Player
+from connect4.board import Board
 
 
 class ConnectFourGame:
 
     board = Board()
-    player_red = Player("red")
-    player_yellow = Player("yellow")
     game_end = False
-    player_red_turn = True
+    player1_turn = True
 
-    def __init__(self):
-        pass
+    def __init__(self, player1, player2):
+        self.player1 = player1
+        self.player2 = player2
 
     def check_won(self, player, row, column):
         """
@@ -72,7 +71,7 @@ class ConnectFourGame:
         count_longest_chain = 0
         column = 0
 
-        while column <= game.board.BOARD_WIDTH:
+        while column <= self.board.BOARD_WIDTH:
             if self.board.board_dict.get((row, column)) == player.colour:
                 count_longest_chain += 1
                 if count_longest_chain >= 4:
@@ -101,7 +100,7 @@ class ConnectFourGame:
             row -= 1
             column -= 1
 
-        while column <= game.board.BOARD_WIDTH and row <= game.board.BOARD_HEIGHT:
+        while column <= self.board.BOARD_WIDTH and row <= self.board.BOARD_HEIGHT:
             if self.board.board_dict.get((row, column)) == player.colour:
                 count_longest_chain += 1
                 if count_longest_chain == 4:
@@ -142,39 +141,16 @@ class ConnectFourGame:
 
         return False
 
-    def start_game(self):
+    def update(self, player, input_column):
         """
-        game loop
+
+        updates board.board_dict by inputting the game piece according to the player's action
+
         """
-        while not game.game_end:
-            game.board.display_board()
-            print("Possible moves: " + str(game.board.valid_moves()))
-            if game.player_red_turn:
-                print("Red's turn.")
-                input_column = int(input("Please input a number: "))
-                if input_column not in game.board.valid_moves():
-                    print("That is not a valid move. Please try again.")
-                    continue
-                input_row = game.board.input_piece(game.player_red, input_column)
-                if game.check_won(game.player_red, input_row, input_column):
-                    game.game_end = True
-                    game.board.display_board()
-                    print("Red won!")
-                game.player_red_turn = False
-            else:
-                print("Yellow's turn.")
-                input_column = int(input("Please input a number: "))
-                if input_column not in game.board.valid_moves():
-                    print("That is not a valid move. Please try again.")
-                    continue
-                input_row = game.board.input_piece(game.player_yellow, input_column)
-                if game.check_won(game.player_red, input_row, input_column):
-                    game.game_end = True
-                    game.board.display_board()
-                    print("Yellow won!")
-                game.player_red_turn = True
+        return self.board.input_piece(player, input_column)
 
-
-if __name__ == '__main__':
-    game = ConnectFourGame()
-    game.start_game()
+# if __name__ == '__main__':
+#     player1 = Player("red")
+#     player2 = Player("yellow")
+#     game = ConnectFourGame(player1, player2)
+#     game.start_game()
