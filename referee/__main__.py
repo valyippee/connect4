@@ -5,8 +5,8 @@ from player import PlayerWrapper
 def main():
     # import player classes and create new players
 
-    p1 = PlayerWrapper("red", "player1", "Player1")
-    p2 = PlayerWrapper("yellow", "player1", "Player1")
+    p1 = PlayerWrapper("red", "playerTesting", "PlayerTesting")
+    p2 = PlayerWrapper("yellow", "playerTesting", "PlayerTesting")
 
     # start game
     result = play([p1, p2])
