@@ -17,7 +17,6 @@ def play(players):
         print(current_player.colour + "'s turn")
         input_column = current_player.action()
         print("chosen column: " + str(input_column))
-        # input_column = int(input("player's action: "))
         if input_column not in game.connect_four_game.board.valid_moves():
             print("That is not a valid move. Please try again.")
             continue

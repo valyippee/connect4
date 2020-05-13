@@ -3,7 +3,7 @@ import random
 import time
 
 
-class Player1:
+class PlayerTesting:
     def __init__(self, colour):
         self.colour = colour
         self.board = Board()

@@ -1,8 +1,3 @@
-class Player:
-    def __init__(self, colour):
-        self.colour = colour
-
-
 class Board:
 
     BOARD_HEIGHT = 6
@@ -50,22 +45,19 @@ class Board:
         prints current game state
 
         """
-        game_state = []
         for i in range(self.BOARD_HEIGHT):
             i = self.BOARD_HEIGHT - i - 1
-            inner_list = [str(i) + " |"]
+            print(str(i) + " |", end="")
             for j in range(self.BOARD_WIDTH):
                 game_piece = self.board_dict.get((i, j))
                 if game_piece is None:
-                    inner_list.append("   ")
+                    print("\033[4m   \033[0m", end="")
                 elif game_piece == "yellow":
-                    inner_list.append("\033[93m X \033[00m")
+                    print("\033[4m\033[93m O \033[0m", end="")
                 elif game_piece == "red":
-                    inner_list.append("\033[91m X \033[00m")
-                inner_list.append("|")
-            game_state.append(''.join(inner_list))
-        game_state.append("    0   1   2   3   4   5   6  ")
-
-        for game_state_str in game_state:
-            print(game_state_str)
-
+                    print("\033[4m\033[91m X \033[0m", end="")
+                if j != self.BOARD_WIDTH - 1:
+                    print("|", end="")
+                else:
+                    print("|")
+        print("    0   1   2   3   4   5   6  ")

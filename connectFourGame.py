@@ -1,5 +1,4 @@
-from connect4.board import Player
-from connect4.board import Board
+from board import Board
 
 
 class ConnectFourGame:
