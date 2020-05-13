@@ -9,8 +9,6 @@ class Board:
     BOARD_WIDTH = 7
 
     def __init__(self):
-        self.row = 7
-        self.column = 6
         self.board_dict = dict()
 
     def input_piece(self, player, column):

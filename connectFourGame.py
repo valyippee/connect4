@@ -4,13 +4,11 @@ from connect4.board import Board
 
 class ConnectFourGame:
 
-    board = Board()
     game_end = False
     player1_turn = True
 
-    def __init__(self, player1, player2):
-        self.player1 = player1
-        self.player2 = player2
+    def __init__(self):
+        self.board = Board()
 
     def check_won(self, player, row, column):
         """
@@ -140,17 +138,3 @@ class ConnectFourGame:
             row += 1
 
         return False
-
-    def update(self, player, input_column):
-        """
-
-        updates board.board_dict by inputting the game piece according to the player's action
-
-        """
-        return self.board.input_piece(player, input_column)
-
-# if __name__ == '__main__':
-#     player1 = Player("red")
-#     player2 = Player("yellow")
-#     game = ConnectFourGame(player1, player2)
-#     game.start_game()
