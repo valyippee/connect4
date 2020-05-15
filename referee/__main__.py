@@ -1,14 +1,17 @@
 from game import play
 from player import PlayerWrapper
+from options import get_options
 
 
 def main():
     # import player classes and create new players
 
-    p1 = PlayerWrapper("red", "playerTesting", "PlayerTesting")
-    p2 = PlayerWrapper("yellow", "playerTesting", "PlayerTesting")
+    options = get_options
 
-    # start game
+    p1 = PlayerWrapper("red", options.player1_loc)
+    p2 = PlayerWrapper("yellow", options.player2_loc)
+
+    # start gameSetup
     result = play([p1, p2])
     print(result)
 

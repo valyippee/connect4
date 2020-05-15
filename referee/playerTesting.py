@@ -1,4 +1,4 @@
-from connect4.board import Board
+from connect4.gameSetup.board import Board
 import random
 import time
 
