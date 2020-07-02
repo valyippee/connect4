@@ -1,4 +1,4 @@
-from gameSetup.connectFourGame import ConnectFourGame
+from connectFourGame import ConnectFourGame
 
 COLOURS = "red", "yellow"
 NUM_PLAYERS = 2

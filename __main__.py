@@ -1,6 +1,6 @@
-from referee.game import play
-from referee.player import PlayerWrapper
-from referee.options import get_options
+from game import play
+from player import PlayerWrapper
+from options import get_options
 
 
 def main():

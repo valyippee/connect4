@@ -1,4 +1,4 @@
-from gameSetup.board import Board
+from board import Board
 import random
 import time
 
