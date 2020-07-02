@@ -14,8 +14,8 @@ class ConnectFourGame:
 
         Args:
             player: player who input the most recent piece
-            row: the row at which the most recent gameSetup piece is inserted
-            column: the column at which the most recent gameSetup piece is inserted
+            row: the row at which the most recent game_setup piece is inserted
+            column: the column at which the most recent game_setup piece is inserted
 
         Returns: boolean of whether the player won
 
@@ -35,7 +35,7 @@ class ConnectFourGame:
 
         Args:
             player: player who input the most recent piece
-            column: the column at which the most recent gameSetup piece is inserted
+            column: the column at which the most recent game_setup piece is inserted
 
         Returns: boolean of whether the player won (four pieces connected vertically)
 
@@ -59,7 +59,7 @@ class ConnectFourGame:
 
         Args:
             player: player who input the most recent piece
-            row: the row at which the most recent gameSetup piece is inserted
+            row: the row at which the most recent game_setup piece is inserted
 
         Returns: boolean of whether the player won (four pieces connected horizontally)
 
@@ -84,8 +84,8 @@ class ConnectFourGame:
 
         Args:
             player: player who input the most recent piece
-            row: the row at which the most recent gameSetup piece is inserted
-            column: the column at which the most recent gameSetup piece is inserted
+            row: the row at which the most recent game_setup piece is inserted
+            column: the column at which the most recent game_setup piece is inserted
 
         Returns: boolean of whether the player won (four pieces connected diagonally upwards to the right)
 
@@ -114,8 +114,8 @@ class ConnectFourGame:
 
         Args:
             player: player who input the most recent piece
-            row: the row at which the most recent gameSetup piece is inserted
-            column: the column at which the most recent gameSetup piece is inserted
+            row: the row at which the most recent game_setup piece is inserted
+            column: the column at which the most recent game_setup piece is inserted
 
         Returns: boolean of whether the player won (four pieces connected diagonally upwards to the right)
 

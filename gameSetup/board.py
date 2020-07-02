@@ -11,7 +11,7 @@ class Board:
 
         Args:
             player: Player instance
-            column: the column at which the gameSetup piece is dropped
+            column: the column at which the game_setup piece is dropped
 
         Returns: (updates self.boardcells with the player's sign) and returns the row at which the piece is
                     added to
@@ -42,7 +42,7 @@ class Board:
     def display_board(self):
         """
 
-        prints current gameSetup state
+        prints current game_setup state
 
         """
         for i in range(self.BOARD_HEIGHT):

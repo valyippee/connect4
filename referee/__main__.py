@@ -11,7 +11,7 @@ def main():
     p1 = PlayerWrapper("red", options.player1_loc)
     p2 = PlayerWrapper("yellow", options.player2_loc)
 
-    # start gameSetup
+    # start game_setup
     result = play([p1, p2])
     print(result)
 

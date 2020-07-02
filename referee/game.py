@@ -6,7 +6,7 @@ GAME_NAME = "Connect Four"
 
 def play(players):
     """
-        Coordinate a gameSetup, return a string describing the result.
+        Coordinate a game_setup, return a string describing the result.
     """
     game = Game()
     for player, colour in zip(players, COLOURS):
