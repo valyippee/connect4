@@ -1,4 +1,4 @@
-from connect4.gameSetup.board import Board
+from gameSetup.board import Board
 
 
 class ConnectFourGame:

@@ -1,7 +1,6 @@
-from connect4.gameSetup.board import Board
+from gameSetup.board import Board
 import random
 import time
-
 
 class PlayerTesting:
     def __init__(self, colour):
