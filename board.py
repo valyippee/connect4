@@ -6,11 +6,11 @@ class Board:
     def __init__(self):
         self.board_dict = dict()
 
-    def input_piece(self, player, column):
+    def input_piece(self, player_colour, column):
         """
 
         Args:
-            player: Player instance
+            player_colour: player colour
             column: the column at which the game_setup piece is dropped
 
         Returns: (updates self.boardcells with the player's sign) and returns the row at which the piece is
@@ -23,7 +23,7 @@ class Board:
             if game_piece[1] == column:
                 possible_rows.remove(game_piece[0])
         row = min(possible_rows)
-        self.board_dict[(row, column)] = player.colour
+        self.board_dict[(row, column)] = player_colour
         return row
 
     def valid_moves(self):

@@ -6,7 +6,7 @@ from options import get_options
 def main():
     # import player classes and create new players
 
-    options = get_options
+    options = get_options()
 
     p1 = PlayerWrapper("red", options.player1_loc)
     p2 = PlayerWrapper("yellow", options.player2_loc)

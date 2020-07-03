@@ -9,32 +9,32 @@ class ConnectFourGame:
     def __init__(self):
         self.board = Board()
 
-    def check_won(self, player, row, column):
+    def check_won(self, player_colour, row, column):
         """
 
         Args:
-            player: player who input the most recent piece
+            player_colour: player who input the most recent piece
             row: the row at which the most recent game_setup piece is inserted
             column: the column at which the most recent game_setup piece is inserted
 
         Returns: boolean of whether the player won
 
         """
-        if self.check_left_diagonal(player, row, column):
+        if self.check_left_diagonal(player_colour, row, column):
             return True
-        if self.check_right_diagonal(player, row, column):
+        if self.check_right_diagonal(player_colour, row, column):
             return True
-        if self.check_horizontal(player, row):
+        if self.check_horizontal(player_colour, row):
             return True
-        if self.check_vertical(player, column):
+        if self.check_vertical(player_colour, column):
             return True
         return False
 
-    def check_vertical(self, player, column):
+    def check_vertical(self, player_colour, column):
         """
 
         Args:
-            player: player who input the most recent piece
+            player_colour: player who input the most recent piece
             column: the column at which the most recent game_setup piece is inserted
 
         Returns: boolean of whether the player won (four pieces connected vertically)
@@ -44,7 +44,7 @@ class ConnectFourGame:
         row = 0
 
         while self.board.board_dict.get((row, column)):
-            if self.board.board_dict.get((row, column)) == player.colour:
+            if self.board.board_dict.get((row, column)) == player_colour:
                 count_longest_chain += 1
             else:
                 count_longest_chain = 0
@@ -54,11 +54,11 @@ class ConnectFourGame:
             return True
         return False
 
-    def check_horizontal(self, player, row):
+    def check_horizontal(self, player_colour, row):
         """
 
         Args:
-            player: player who input the most recent piece
+            player_colour: player who input the most recent piece
             row: the row at which the most recent game_setup piece is inserted
 
         Returns: boolean of whether the player won (four pieces connected horizontally)
@@ -69,7 +69,7 @@ class ConnectFourGame:
         column = 0
 
         while column <= self.board.BOARD_WIDTH:
-            if self.board.board_dict.get((row, column)) == player.colour:
+            if self.board.board_dict.get((row, column)) == player_colour:
                 count_longest_chain += 1
                 if count_longest_chain >= 4:
                     return True
@@ -79,11 +79,11 @@ class ConnectFourGame:
 
         return False
 
-    def check_right_diagonal(self, player, row, column):
+    def check_right_diagonal(self, player_colour, row, column):
         """
 
         Args:
-            player: player who input the most recent piece
+            player_colour: player who input the most recent piece
             row: the row at which the most recent game_setup piece is inserted
             column: the column at which the most recent game_setup piece is inserted
 
@@ -98,7 +98,7 @@ class ConnectFourGame:
             column -= 1
 
         while column <= self.board.BOARD_WIDTH and row <= self.board.BOARD_HEIGHT:
-            if self.board.board_dict.get((row, column)) == player.colour:
+            if self.board.board_dict.get((row, column)) == player_colour:
                 count_longest_chain += 1
                 if count_longest_chain == 4:
                     return True
@@ -109,11 +109,11 @@ class ConnectFourGame:
 
         return False
 
-    def check_left_diagonal(self, player, row, column):
+    def check_left_diagonal(self, player_colour, row, column):
         """
 
         Args:
-            player: player who input the most recent piece
+            player_colour: player who input the most recent piece
             row: the row at which the most recent game_setup piece is inserted
             column: the column at which the most recent game_setup piece is inserted
 
@@ -127,7 +127,7 @@ class ConnectFourGame:
             column += 1
 
         while column >= 0 and row >= 0:
-            if self.board.board_dict.get((row, column)) == player.colour:
+            if self.board.board_dict.get((row, column)) == player_colour:
                 count_longest_chain += 1
                 if count_longest_chain >= 4:
                     return True

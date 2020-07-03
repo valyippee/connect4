@@ -22,12 +22,12 @@ def play(players):
             print("That is not a valid move. Please try again.")
             continue
 
-        input_row = game.update(current_player, input_column)
+        input_row = game.update(current_player.colour, input_column)
 
         for player in players:
-            player.update(current_player, input_column)
+            player.update(current_player.colour, input_column)
 
-        if game.connect_four_game.check_won(current_player, input_row, input_column):
+        if game.connect_four_game.check_won(current_player.colour, input_row, input_column):
             game.connect_four_game.board.display_board()
             if current_player.colour == "red":
                 return "Red won!"
