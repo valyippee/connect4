@@ -117,7 +117,7 @@ class ConnectFourGame:
             row: the row at which the most recent game_setup piece is inserted
             column: the column at which the most recent game_setup piece is inserted
 
-        Returns: boolean of whether the player won (four pieces connected diagonally upwards to the right)
+        Returns: boolean of whether the player won (four pieces connected diagonally upwards to the left)
 
         """
         count_longest_chain = 0
@@ -126,7 +126,7 @@ class ConnectFourGame:
             row -= 1
             column += 1
 
-        while column >= 0 and row >= 0:
+        while column >= 0 and row <= self.board.BOARD_HEIGHT:
             if self.board.board_dict.get((row, column)) == player_colour:
                 count_longest_chain += 1
                 if count_longest_chain >= 4:
