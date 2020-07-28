@@ -30,6 +30,11 @@ class ConnectFourGame:
             return True
         return False
 
+    def check_draw(self):
+        if len(self.board.board_dict.keys()) == 42:
+            return True
+        return False
+
     def check_vertical(self, player_colour, column):
         """
 
@@ -43,8 +48,8 @@ class ConnectFourGame:
         count_longest_chain = 0
         row = 0
 
-        while self.board.board_dict.get((row, column)):
-            if self.board.board_dict.get((row, column)) == player_colour:
+        while self.board.board_dict.get((column, row)):
+            if self.board.board_dict.get((column, row)) == player_colour:
                 count_longest_chain += 1
             else:
                 count_longest_chain = 0
@@ -69,7 +74,7 @@ class ConnectFourGame:
         column = 0
 
         while column <= self.board.BOARD_WIDTH:
-            if self.board.board_dict.get((row, column)) == player_colour:
+            if self.board.board_dict.get((column, row)) == player_colour:
                 count_longest_chain += 1
                 if count_longest_chain >= 4:
                     return True
@@ -98,7 +103,7 @@ class ConnectFourGame:
             column -= 1
 
         while column <= self.board.BOARD_WIDTH and row <= self.board.BOARD_HEIGHT:
-            if self.board.board_dict.get((row, column)) == player_colour:
+            if self.board.board_dict.get((column, row)) == player_colour:
                 count_longest_chain += 1
                 if count_longest_chain == 4:
                     return True
@@ -127,7 +132,7 @@ class ConnectFourGame:
             column += 1
 
         while column >= 0 and row <= self.board.BOARD_HEIGHT:
-            if self.board.board_dict.get((row, column)) == player_colour:
+            if self.board.board_dict.get((column, row)) == player_colour:
                 count_longest_chain += 1
                 if count_longest_chain >= 4:
                     return True

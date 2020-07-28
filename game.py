@@ -32,6 +32,8 @@ def play(players):
             if current_player.colour == "red":
                 return "Red won!"
             return "Yellow won!"
+        if game.connect_four_game.check_draw():
+            return "Draw!"
 
         current_player, next_player = next_player, current_player
 
