@@ -1,4 +1,4 @@
-from minimaxBoard import MinimaxBoard
+from korkorPlayers.minimaxBoard import MinimaxBoard
 import random
 import math
 import copy
@@ -18,7 +18,7 @@ class Player:
 
     def minimax(self, board, depth, alpha, beta, maximizingPlayer):
         if depth == 0 or board.game_over():
-            score = board.smart_heuristic(self.colour)
+            score = board.heuristic(self.colour)
             return score
 
         if maximizingPlayer:
@@ -55,9 +55,7 @@ class Player:
         for action in available_moves:
             resulting_board = copy.deepcopy(self.board)
             resulting_board.input_piece(self.colour, action)
-            if resulting_board.check_win(self.colour):
-                return action
-            score = self.minimax(resulting_board, 6, alpha, beta, False)
+            score = self.minimax(resulting_board, 5, alpha, beta, False)
             action_score.append((score, action))
         sorted_action_score = sorted(action_score, reverse=True)
 

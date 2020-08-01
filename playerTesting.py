@@ -1,6 +1,6 @@
 from board import Board
 from game import COLOURS
-import random
+
 
 class Player:
     def __init__(self, colour):
@@ -10,7 +10,7 @@ class Player:
         else:
             self.opponent_colour = COLOURS[0]
         self.board = Board()
-        self.scores = {self.colour: 1, self.opponent_colour: -1, 'tie': 0}
+        self.scores = {self.colour: 100, self.opponent_colour: -100, 'tie': 0}
 
     def update(self, player_colour, column):
         return self.board.input_piece(player_colour, column)
@@ -34,7 +34,7 @@ class Player:
     def minimax(self, is_max, depth, alpha, beta):
         # recursion depth hit or game ended, return static evaluation of the game state
         if depth == 0 or self.check_game_end():
-            return random.randint(0, 50)
+            return self.evaluate_state()
 
         available_moves = self.board.valid_moves()
         if is_max:
@@ -68,35 +68,80 @@ class Player:
 
         return best_score
 
+    def evaluate_state(self):
+        ### win: 100
+        # three in a row and empty slot: 10 points for either side
+        # two in a row and empty slot: 5 points for either side
+        # one piece: 1 point for empty slot beside (diagonal ones too) ????
+        if self.check_game_end() or self.check_won() != "tie":
+            return self.scores[self.check_won()]
+        opponent_score = 0
+        my_score = 0
+        # count scores for each column
+        for column in range(self.board.BOARD_WIDTH):
+            my_chain, opponent_chain = self.count_column(column)
+            my_score, opponent_score = self.update_score(my_chain, opponent_chain, my_score, opponent_score)
+
+        # count scores for each row
+        for row in range(self.board.BOARD_HEIGHT):
+            opponent_chain = 0
+            my_chain = 0
+            for column in range(self.board.BOARD_WIDTH):
+                new_chain, new_opponent_chain = self.check_consecutive(my_chain, opponent_chain, row,column)
+                if new_chain == 0 and new_opponent_chain == 0:
+
+        return my_score - opponent_score
+
+    def update_score(self, my_chain, opponent_chain, my_score, opponent_score):
+        if my_chain == 2:
+            my_score += 5
+        elif my_chain == 3:
+            my_score += 10
+        elif my_chain == 4:
+            my_score += 100
+        if opponent_chain == 2:
+            opponent_score += 5
+        elif opponent_chain == 3:
+            opponent_score += 10
+        elif opponent_chain == 4:
+            opponent_score += 100
+        return my_score, opponent_score
+
+
     def check_game_end(self):
         if len(self.board.board_dict) == self.board.BOARD_HEIGHT * self.board.BOARD_WIDTH:
             return True
         return False
 
+    def count_column(self, column):
+        # TODO: prevent it from returning zero, zero
+        opponent_chain = 0
+        my_chain = 0
+        for row in range(self.board.BOARD_HEIGHT):
+            my_chain, opponent_chain = self.check_consecutive(my_chain, opponent_chain, row, column)
+            if my_chain == 0 and opponent_chain == 0:
+                break
+        return my_chain, opponent_chain
+
     def check_won(self):
-        # check rows
+        # check columns
         for column in range(self.board.BOARD_WIDTH):
-            opponent_chain = 0
-            my_chain = 0
-            for row in range(self.board.BOARD_HEIGHT):
-                my_chain, opponent_chain = self.check_consecutive(my_chain, opponent_chain, row, column)
-            # print("my chain: " + str(my_chain))
-            # print("opponent chain" + str(opponent_chain))
+            my_chain, opponent_chain = self.count_column(column)
             if opponent_chain >= 4:
                 return self.opponent_colour
             elif my_chain >= 4:
                 return self.colour
 
-        # check columns
+        # check rows
         for row in range(self.board.BOARD_HEIGHT):
             opponent_chain = 0
             my_chain = 0
             for column in range(self.board.BOARD_HEIGHT):
                 my_chain, opponent_chain = self.check_consecutive(my_chain, opponent_chain, row, column)
-            if opponent_chain >= 4:
-                return self.opponent_colour
-            elif my_chain >= 4:
-                return self.colour
+                if opponent_chain >= 4:
+                    return self.opponent_colour
+                elif my_chain >= 4:
+                    return self.colour
 
         # check increasing diagonals (6 possible starting points)
         for row in range(0, 3):
@@ -107,10 +152,10 @@ class Player:
                 my_chain, opponent_chain = self.check_consecutive(my_chain, opponent_chain, row, column)
                 column += 1
                 row += 1
-            if opponent_chain >= 4:
-                return self.opponent_colour
-            elif my_chain >= 4:
-                return self.colour
+                if opponent_chain >= 4:
+                    return self.opponent_colour
+                elif my_chain >= 4:
+                    return self.colour
         for column in range(1, 4):
             row = 0
             my_chain = 0
@@ -119,10 +164,10 @@ class Player:
                 my_chain, opponent_chain = self.check_consecutive(my_chain, opponent_chain, row, column)
                 column += 1
                 row += 1
-            if opponent_chain >= 4:
-                return self.opponent_colour
-            elif my_chain >= 4:
-                return self.colour
+                if opponent_chain >= 4:
+                    return self.opponent_colour
+                elif my_chain >= 4:
+                    return self.colour
 
         # check increasing diagonals (6 possible starting points)
         for row in range(0, 3):
@@ -133,10 +178,10 @@ class Player:
                 my_chain, opponent_chain = self.check_consecutive(my_chain, opponent_chain, row, column)
                 column -= 1
                 row += 1
-            if opponent_chain >= 4:
-                return self.opponent_colour
-            elif my_chain >= 4:
-                return self.colour
+                if opponent_chain >= 4:
+                    return self.opponent_colour
+                elif my_chain >= 4:
+                    return self.colour
         for column in range(3, 6):
             row = 0
             my_chain = 0
@@ -145,10 +190,10 @@ class Player:
                 my_chain, opponent_chain = self.check_consecutive(my_chain, opponent_chain, row, column)
                 column += 1
                 row += 1
-            if opponent_chain >= 4:
-                return self.opponent_colour
-            elif my_chain >= 4:
-                return self.colour
+                if opponent_chain >= 4:
+                    return self.opponent_colour
+                elif my_chain >= 4:
+                    return self.colour
         return "tie"
 
     def check_consecutive(self, my_chain, opponent_chain, row, column):
