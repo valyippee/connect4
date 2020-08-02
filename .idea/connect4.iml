@@ -2,9 +2,7 @@
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/referee" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/korkorPlayer" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/korkorPlayers" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.6" jdkType="Python SDK" />
