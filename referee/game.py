@@ -1,4 +1,4 @@
-from connectFourGame import ConnectFourGame
+from referee.connectFourGame import ConnectFourGame
 
 COLOURS = "red", "yellow"
 NUM_PLAYERS = 2

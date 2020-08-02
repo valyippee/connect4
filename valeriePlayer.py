@@ -1,4 +1,4 @@
-from minimaxBoard import MinimaxBoard
+from korkorPlayers.minimaxBoard import MinimaxBoard
 import random
 import math
 import copy
